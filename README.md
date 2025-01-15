@@ -1,51 +1,58 @@
-# Projeto de PMS 24/25
+# PMS Project
 
-Este projeto consiste numa plataforma web de crowdfunding, projetada para incentivar doações a causas sociais. O objetivo é criar uma experiência envolvente que fomente a participação comunitária e aumente o impacto das campanhas. Algumas das funcionalidades incluem a criação e gestão de campanhas, visualização de doações e criação de utilizadores. 
+We got a grade of 18/20. Developed by a group of four people.
 
-## Pré-requisitos
+Graded by Pedro Campos @ University of Madeira
+
+
+Description
+
+This project consists of a web-based crowdfunding platform designed to encourage donations to social causes. The goal is to create an engaging experience that encourages community participation and increases the impact of campaigns. Some of the features include creating and managing campaigns, viewing donations, and creating users.
+
+## Prerequisites
 - Node.js
 - Node Package Manager (NPM)
 - Git
 
-## Instalação
+## Instalation
 
-O processo de instalação consiste em clonar este repositório e instalar as dependências utilizando o NPM. Para tal podem ser executados os seguintes comandos:
+The installation process consists of cloning this repository and installing the dependencies using NPM. To do this, the following commands can be executed:
 
 ```
-git clone https://github.com/LeJoneMacarone/Projeto-PMS
+git clone https://github.com/luismpfranco/Software-Processes-and-Metrics-Project
 npm install
 ```
 
-## Execução
+## Execution
 
-A platforma pode ser executada localmente executando o seguinte comando num terminal:
+The platform can be run locally by running the following command in a terminal:
 
 ```
 node index.js
 ```
 
-## Utilização
+## Use
 
-Enquanto a aplicação estiver a correr, o acesso pode ser feito num web-browser pelo URL [`http:/localhost:3000/campaigns`](http:/localhost:3000/campaigns).
+While the application is running, access can be made in a web browser via the URL [`http:/localhost:3000/campaigns`](http:/localhost:3000/campaigns).
 
-Algumas das funcionalidades podem exigir login na plataforma. Para tal é necessária o registo (para criar uma conta) e o posterior login. Importante notar que o registo de criadores de campanha só fica finalizado após a validação de um administrador.
+Some features may require login to the platform. To do this, you need to register (to create an account) and then log in. It is important to note that the registration of campaign creators is only completed after validation by an administrator.
 
-Alternativamente, este repositório fornece um ficheiro `sqlite` com alguns dados de exemplo para teste de funcionalidades durante as fases de desenvolvimento, incluindo um conjunto de contas de utilizadores. 
+Alternatively, this repository provides an `sqlite` file with some sample data for functionality testing during the development stages, including a set of user accounts.
 
-Na tabela seguinte estão listadas algumas das contas que podem ser utilizadas para testar as funcionalidades. Cada conta está associado a um cargo específico, que podem assumir.
+The following table lists some of the accounts that can be used to test the features. Each account is associated with a specific role that they can assume.
 
-| Username | Password | Cargo |
+| Username | Password | Position |
 | - | - | - |
-| root | root | Administrador "Root"
-| frank | password | Administrador
-| thor | password | Criador de Campanhas
-| bob | password | Doador  
+| root | root | Administrator "Root"
+| frank | password | Administrator
+| thor | password | Campaigns creator
+| bob | password | Donor
 
-## Testes
+## Tests
 
-O `package.json` define alguns comandos que podem ser usados de modo a executar os testes unitários e gerar relatórios de coverage.
+The `package.json` file defines some commands that can be used to run unit tests and generate coverage reports.
 
-| Comando | Descrição |
+| Command | Description |
 | :-: | :- |
-| `npm run test` | Executa os testes unitários. |
-| `npm run test-coverage` | Executa os testes e gera o respetivo relatório de coverage localizado em `./coverage/lcov-report/index.html`|
+| `npm run test` | Runs the unit tests. |
+| `npm run test-coverage` | Runs the tests and generates the respective coverage report located at `./coverage/lcov-report/index.html`|
