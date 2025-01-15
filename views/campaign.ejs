@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Campaign Info"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs") %>
+    <div class="container-lg custom-container">
+        <!-- Right column -->
+        <div class="col-12 col-md-4 right-col d-none d-md-block">
+            <% if(user) { %>
+                <div class="custom-report">
+                    <button type="button" class="btn btn-warning mb-3 custom-report" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        Report
+                    </button>
+                </div>
+            <% } %>
+            
+            <div class="donations-info">
+                <% if(user && user.role == "donor"){ %>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#donateModal">
+                            Donate
+                        </button>
+                    </div>
+                <% } %>
+            
+                <div class="mb-4">
+                    <h4>Donated Money:</h4>
+                    <p><small>** Till this moment</small></p>
+                    <div class="custom-bar" style="background: linear-gradient(to top, rgb(75, 255, 75) <%= (totalDonated / campaign.goal) * 100 %>%, white <%= (totalDonated / campaign.goal) * 100 %>%);">
+                        <div class="h6">
+                            <%= totalDonated %> €
+                        </div>
+                    </div>
+                </div>
+            
+                <% if(topDonors.length > 0) { %>
+                    <div class="mb-4">
+                        <h4>Top 5 Donors:</h4>
+                        <p><small>** Till this moment</small></p>
+                        <div class="list-group">
+                            <% topDonors.forEach((donor) => { %> 
+                                <div class="list-group-item d-flex align-items-center">
+                                    <img src="<%= donor.picture
+											  ? `data:image/gif;base64,${ Buffer.from(donor.picture).toString("base64") }` 
+											  : "/images/profile.png" %>" 
+										 alt="donor_profile" 
+										 class="rounded-circle" 
+										 style="width: 40px; height: 40px; margin-right: 10px;">
+                                    <span class="me-2 ellipsis-text"><%= donor.username %></span>
+                                    <span class="ms-auto"><%= donor.amountDonated %> €</span>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% } %>
+            
+                <% if(latestDonors.length > 0) { %>
+                    <div class="mb-4">
+                        <h4>5 New Donors:</h4>
+                        <p><small>** Till this moment</small></p>
+                        <div class="list-group">
+                            <% latestDonors.forEach((donor) => { %>
+                                <div class="list-group-item d-flex align-items-center">
+                                    <img src="<%= donor.picture
+											  ? `data:image/gif;base64,${ Buffer.from(donor.picture).toString("base64") }` 
+											  : "/images/profile.png" %>" 
+										 alt="donor_profile" 
+										 class="rounded-circle" 
+										 style="width: 40px; height: 40px; margin-right: 10px;">
+                                    <span class="me-2 ellipsis-text"><%= donor.username %></span>
+                                    <span class="ms-auto"><%= donor.amountDonated %> €</span>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="d-md-none custom-btn">
+            <button id="toggleRightColumn" class="btn btn-info w-100 mb-3">
+                <img src="/images/info.png" alt="info">
+            </button>
+        </div>
+        
+        <!-- Left column -->
+        <div class="col-12 col-md-8 left-col">
+            <h1 class="display-4 text-break mb-3"><%= campaign.title %></h1>
+            
+            <div class="d-flex align-items-center mb-4">
+				<img src="<%= campaign.creator.picture 
+						  ? `data:image/gif;base64,${ Buffer.from(campaign.creator.picture).toString("base64") }` 
+						  : "/images/profile.png" %>"
+                     alt="creator_profile" 
+                     class="rounded-circle me-3" 
+                     style="width: 50px; height: 50px;">
+                <span class="h5 mb-0"><%= campaign.creator.username %></span>
+            </div>
+            
+            <p class="mb-4 h5">
+                <b>Goal:</b> <%= campaign.goal %> €
+            </p>
+            
+            <div class="mb-4">
+                <%= campaign.description %>
+            </div>
+
+            <% if (campaign.media) { %>
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <img src="data:image/gif;base64,<%= Buffer.from(campaign.media).toString("base64") %>" 
+                            alt="media" 
+                            class="img-fluid rounded shadow-sm">
+                </div>
+            <% } %>
+            
+            <hr class="my-4">
+            
+            <h2 class="h3 mb-3">Updates</h2>
+            <div class="updates">
+                <% updates.forEach((update) => { %>
+                    <div class="mb-4 p-3 border rounded shadow-sm">
+                        <p class="mb-0 custom-date"><%= update.createdAt %></p>
+                        <div>
+                            <% if (update.media) { %>
+                                <img src="data:image/gif;base64,<%= Buffer.from(update.media).toString("base64") %>"
+                                    alt="update" 
+                                    class="img-fluid rounded mb-3">
+                            <% } %>
+                            <div><%= update.content %></div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>        
+    </div>
+
+    <% if(user) { %>
+        <!-- Report Modal -->
+        <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reportModalLabel">Report Campaign</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <form action="/reports" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="reportDescription" class="form-label">Report Description</label>
+                                <textarea id="description" name="description" class="form-control" rows="4" required placeholder="Enter details about the report..."></textarea>
+                            </div>
+                            <input type="hidden" id="campaignId" name="campaignId" value="<%= campaign.id %>">
+                            <input type="hidden" id="userId" name="reporterId" value="<%= user.id %>">
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Submit Report</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <% if(user && user.role == "donor") { %>
+        <!-- Donation Modal -->
+        <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            <h5 class="mb-1">Donate Money for the Campaign:</h5>
+                            <h6 class="text-muted"><%= campaign.title %></h6>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+        
+                    <form action="/donations" method="POST">
+                        <div class="modal-body">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="anonymousDonation">
+                                <label class="form-check-label" for="anonymousDonation">Anonymous donation</label>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">How much would you like to donate?</label>
+                                <input id="amount" name="amount" class="form-control" type="number" placeholder="Enter amount" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label for="donationMethod" class="form-label">Donation method</label>
+                                <select name="donation_method" id="donationMethod" class="form-select">
+                                    <option value="multibanco">Multibanco</option>
+                                    <option value="mbway">MBWay</option>
+                                    <option value="paypal">PayPal</option>
+                                    <option value="paysafecard">Paysafecard</option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" id="campaignId" name="campaignId" value="<%= campaign.id %>">
+                            <input type="hidden" id="donorId" name="donorId" value="<%= user.id %>">
+                        </div>
+        
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Donate</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // Get the toggle button and the right column
+        const toggleButton = document.getElementById('toggleRightColumn');
+        const rightColumn = document.querySelector('.right-col');
+    
+        // Add click event listener to toggle the visibility of the right column
+        toggleButton.addEventListener('click', function() {
+            // Toggle the 'd-none' class to show/hide the right column
+            rightColumn.classList.toggle('d-none');
+        });
+    </script>    
+</body>
+</html>

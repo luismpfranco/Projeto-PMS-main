@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Home"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs") %>
+    <div class="container-md">
+        <h1>Campaigns</h1>
+        <!-- Container where is gonna go the campaign preview FOR EACH CAMPAIGN -->
+        <div class="row">
+            <% campaigns.forEach((campaign) => { %>
+                <a href="/campaigns/<%= campaign.id %>" class="col-md-6 col-lg-4 campaign-box">
+                    <div>
+                        <div>
+                            <h3><%= campaign.title %></h3>
+                            <div class="campaign-creator">
+								<img src=<%= campaign.creator.picture
+                                        ? `data:image/gif;base64,${ Buffer.from(campaign.creator.picture).toString("base64") }` 
+                                        : "/images/profile.png"%>
+									 alt="creator_profile" >
+                                <span><%= campaign.creator.username %></span>
+                            </div>
+                        </div>
+                        <div class="campaign-info">
+                            <p><b>Goal: </b><%= campaign.goal %> €</p>
+                            
+                            <div>
+                                <div class="campaign-description">
+                                    <%= campaign.description %>
+                                </div>
+                                <% if (campaign.media) { %>
+                                    <div>
+                                        <img src="data:image/gif;base64,<%= Buffer.from(campaign.media).toString("base64") %>" 
+                                            alt="campaign-thumbnail">
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="campaign-percentage" style="background: linear-gradient(to right, green <%= campaign.donationsPercentage %>%, white <%= campaign.donationsPercentage %>%);"></div>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+        <!-- TODO: make it appear only when there are more campaigns on the next page -->
+        <div class="d-flex justify-content-center mt-3">
+            <% if (page > 0) { %>
+                <a href="/campaigns/page/<%= page - 1 %>" class="btn btn-outline-success me-2">
+                    <i class="bi bi-arrow-left"></i> Previous
+                </a>
+            <% } %>
+            <% if ((page + 1) * 6 < campaignsCount) { %>
+                <a href="/campaigns/page/<%= page + 1 %>" class="btn btn-success">
+                    Next <i class="bi bi-arrow-right"></i>
+                </a>
+            <% } %>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body{
+    overflow-x: hidden;
+}
+
+.container-md{
+    margin-top: 1.5rem;
+}
+
+.nav-creator{
+    background: rgb(89, 242, 89);
+    margin-top: 2rem;
+    margin-left: -25vw;
+    margin-right: -25vw; 
+}
+
+.nav-creator a{
+    color: black;
+    padding-inline: 3rem;
+}
+
+.nav-creator a:hover{
+    color: black;
+    opacity: 0.7;
+}
+
+.custom-table{
+    text-align: center;
+}
+
+.custom-table a{
+    text-decoration: none;
+}
+
+.custom-table a:hover{
+    opacity: 0.7;
+}
+
+.actions-elm{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.actions-elm button {
+    height: 50px;
+    aspect-ratio: 1/1;
+    margin: 0 1rem;
+    border: none;
+}
+
+/* .actions-elm>button{
+    background: rgba(0, 0, 255, 0.8) url("../images/update.png") center/contain no-repeat;
+    color: white;
+    border-radius: 0.5em;
+}
+
+.actions-elm>form button{
+    background: rgba(255, 0, 0, 0.8) url("../images/delete.png") center/contain no-repeat;
+    color: white;
+    border-radius: 0.5em;
+}
+
+.actions-elm button:hover{
+    opacity: 0.7;
+} */
+
+.red{
+    margin-top: 0;
+    color: red;
+    font-size: 14px;
+}
+
+.custom-textarea textarea{
+    resize: none;
+    height: 15rem;
+}

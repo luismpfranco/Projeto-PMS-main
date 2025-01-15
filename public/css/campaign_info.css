@@ -1,0 +1,95 @@
+.container-lg{
+    margin-top: 1.5rem;
+}
+
+.custom-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.left-col{
+    padding: 0 1.5rem;
+}
+
+.custom-date{
+    text-align: end;
+    padding:  0 0 1rem;
+}
+
+.custom-btn{
+    position: absolute;
+    width: 3rem;
+    aspect-ratio: 1/1;
+}
+
+.custom-btn img{
+    object-fit: contain;
+    width: 100%;
+}
+
+.custom-report{
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.custom-report button{
+    width: 10rem;
+}
+
+.custom-report button,
+.custom-report+div>div>button{
+    height: 3rem;
+}
+
+.custom-bar{
+    height: 8rem;
+    align-content: center;
+    justify-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.custom-bar>div{
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    align-content: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.donations-info{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.ellipsis-text {
+    white-space: nowrap;       
+    overflow: hidden;          
+    text-overflow: ellipsis; 
+}
+
+.ellipsis-text+span{
+    width: 50px;
+    text-align: end;
+}
+
+#reportModal .modal-dialog {
+    max-width: 500px;
+}
+
+#reportDescription {
+    resize: none;
+}
+
+
+@media screen and (max-width: 767px) {
+    .donations-info{
+        border: none;
+    }
+
+    .custom-report{
+        padding: 2rem 0 0.5rem;
+    }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Creator To Validate"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs"); %>
+    <div class="container-md">
+        <h1>New Creators</h1>
+        <p>Here are the new campaign creators that required to be validated.</p>
+
+        <div class="row g-4">
+            <% if(requests && requests.length > 0) { %>
+                <% requests.forEach((request) => { %>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="#" class="text-decoration-none text-dark">
+                        <div class="card shadow-sm">
+                            <div class="card-body text-center">
+                                <img src="/images/profile.png" alt="creator_profile" class="rounded-circle mb-3" style="width: 80px; height: 80px;"> <!-- TODO dynamic profile picture -->
+                                <h5 class="card-title mb-2"><%= request.campaignCreator.username %></h5>
+                                <p class="card-text text-muted">Validate this creator</p>
+                                <button class="btn btn-primary" onclick="window.location.href='/campaign_creators/<%= request.id %>'">Validate</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }); } else { %>
+                <div class="col-12">
+                    <p class="text-muted text-center">No creators available for validation.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

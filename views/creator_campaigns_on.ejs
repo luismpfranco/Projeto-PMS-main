@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Creator - Their Campaigns"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs") %>
+    <div class="container-md">
+		<!-- TODO: uncomment after implementing a way to filter campaigns by status -->
+        <%- /* include("./partials/creator_opt_bar.ejs") */ %>
+        <div class="table-responsive-md">
+            <table class="table table-bordered table align-middle table-striped custom-table">
+                <tr>
+                    <th>Title</th>
+                    <th>Goal</th>
+                    <th>Money Donated (%)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+    
+                <% campaigns.forEach((campaign) => { %>
+                    <tr>
+                        <td><a href="" class="h6"><%= campaign.title %></a></td>
+                        <td><%= campaign.goal %> €</td>
+                        <!--Campaign percentage of money donated-->
+                        <td><%= campaign.totalDonated * 100 / campaign.goal %> %</td>
+                        <td><%= campaign.status %></td>
+                        <td class="actions-elm">
+                            <!-- TODO: implement campaign delete -->
+                            <form action="/campaigns/<%= campaign.id %>/delete">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                            <button type="button" class="btn btn-primary btn-update"
+                                    data-id="<%= campaign.id %>" 
+                                    data-title="<%= campaign.title %>" 
+                                    data-bs-toggle="modal" data-bs-target="#updateModal">
+                                Update
+                            </button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" >
+                        <h5 id="updateModalLabel">Update Campaign</h5>
+                        <h6>For campaign: <span id="campaignTitle"></span></h3>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/campaigns/updates" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <p>Fill in the following fields to update donors and your campaign page about its progress</p>
+                        <p class="red">* mandatory field</p>
+                        <div class="mb-3 custom-textarea">
+                            <label for="publication" class="form-label">Publication: <span class="red">*</span></label>
+                            <textarea id="content" name="content" class="form-control" placeholder="Write here your publication" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="media" class="form-label">Upload Media:</label>
+                            <input id="media" type="file" name="media" class="form-control" accept="video/*,image/png,image/jpeg">
+                        </div>
+                        <input type="hidden" id="campaignId" name="campaignId">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.querySelectorAll('.btn-update').forEach(button => {
+            button.addEventListener('click', function () {
+                // Get data from the button attributes
+                const id = this.dataset.id;
+                const title = this.dataset.title;
+
+                // Populate the modal fields
+                document.getElementById('campaignId').value = id;
+                document.getElementById('campaignTitle').insertAdjacentText("afterbegin", title);
+            });
+        });
+    </script>
+</body>
+</html>

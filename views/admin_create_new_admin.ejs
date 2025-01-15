@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Create a new admin" }); %>
+
+    <body>
+        <%- include("./partials/nav_bar.ejs"); %>
+            <div class="container-fluid" style="min-height: 100vh; padding: 50px 0;">
+                <div class="text-center mb-4 mt-4">
+                    <h1>Create a new admin</h1>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="card p-4 mt-4"
+                        style="max-width: 350px; width: 100%; background-color: #d6e8d6; border-radius: 50px; padding: 20px; border: none;">
+                        <div class="card-body">
+                            <form action="/register" method="POST">
+                                <!-- Username -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        style="border-radius: 50px;" placeholder="Enter username" required>
+                                </div>
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        style="border-radius: 50px;" placeholder="Enter password" required>
+                                </div>
+                                <!-- Confirm password -->
+                                <div class="mb-4">
+                                    <label for="password_confirmation" class="form-label">Confirm password</label>
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" style="border-radius: 50px;"
+                                        placeholder="Enter password again" required>
+                                </div>
+                                <!-- Role -->
+                                <input type="hidden" name="role" value="administrator">
+                                <!-- Create button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn"
+                                        style="width: 131px; padding: 6px 12px; border-radius: 50px; background-color: #3d704d; color: white; border: none; transition: background-color 0.3s ease;"
+                                        onmouseover="this.style.backgroundColor='#2e5239';"
+                                        onmouseout="this.style.backgroundColor='#3d704d';">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

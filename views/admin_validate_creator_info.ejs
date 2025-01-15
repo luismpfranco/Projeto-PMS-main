@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Creator To Validate Info"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs"); %>
+    <div class="container mt-5">
+        <div class="mb-4">
+            <a href="/campaign_creators" class="btn btn-outline-dark mb-4">
+                <span>&larr;</span> Go Back
+            </a>
+            <h1>Validate Creator: <span class="text-primary"><%= request.campaignCreator.username %></span></h1>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <p class="card-text">
+                    Validate the document below and decide whether to approve or reject this campaign creator.
+                </p>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Identification Document</span>
+                        <a href="/campaign_creators/<%= request.id %>/document" target="_blank" class="btn btn-outline-primary btn-sm">
+                            View Document
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <div class="d-flex gap-3">
+            <form action="/campaign_creators/update_status/<%= request.id %>" method="POST">
+                <input type="hidden" name="status" value="Approved">
+                <button type="submit" class="btn btn-success w-100">Approve</button>
+            </form>
+            <form action="/campaign_creators/update_status/<%= request.id %>" method="POST">
+                <input type="hidden" name="status" value="Rejected">
+                <button type="submit" class="btn btn-danger w-100">Reject</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

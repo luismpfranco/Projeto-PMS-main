@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs", {title: "Creator Generate Campaign"});  %>
+<body>
+    <%- include("./partials/nav_bar.ejs") %>
+    <div class="container-md">
+        <%- /* include("./partials/creator_opt_bar.ejs") */ %>
+        <div class="container my-4 p-4 border rounded shadow-sm bg-light">
+            <h3 class="mb-3">Form to Generate the Campaign</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <p class="mb-2 text-muted">Fill in the following fields to create a campaign</p>
+                <p class="text-danger red">* mandatory fields</p>
+        
+                <div class="mb-3">
+                    <label for="campaignTitle" class="form-label">
+                        Campaign Title: <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" id="campaignTitle" class="form-control" name="title" placeholder="Enter your campaign title" required>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="campaignDescription" class="form-label">
+                        Campaign Description: <span class="text-danger">*</span>
+                    </label>
+                    <textarea id="campaignDescription" class="form-control custom-textarea" name="description" placeholder="Write your campaign description" rows="4" required></textarea>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="campaignGoal" class="form-label">
+                        Campaign Goal: <span class="text-danger">*</span>
+                    </label>
+                    <input type="number" id="campaignGoal" class="form-control" name="goal" placeholder="Enter your campaign goal in euros" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="campaignEndDate" class="form-label">
+                        Campaign End Date: <span class="text-danger">*</span>
+                    </label>
+                    <input type="date" id="campaignEndDate" class="form-control" name="endDate" placeholder="Enter your campaign goal in euros" required>
+                </div>
+                
+				<div class="mb-3">
+                    <label for="campaignIBAN" class="form-label">
+                        Account IBAN: <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" id="campaignIBAN" class="form-control" name="iban" placeholder="Enter the account IBAN, to where money will be sent" required>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="campaignMedia" class="form-label">
+                        Image (to show users about the campaign)
+                    </label>
+                    <input type="file" id="campaignMedia" class="form-control" name="media" accept="image/png, image/jpeg">
+                </div>
+        
+                <div class="d-flex flex-column align-items-center">
+                    <button type="submit" class="btn btn-primary mb-2 custom-btn-submit">Generate</button>
+                    <p class="text-muted text-center">
+                        ** This form will be sent to administrators for evaluation. If approved, the campaign will be created and published automatically.
+                    </p>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
