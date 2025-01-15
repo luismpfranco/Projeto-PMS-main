@@ -5,7 +5,7 @@ We got a grade of 18/20. Developed by a group of four people.
 Graded by Pedro Campos @ University of Madeira
 
 
-Description
+## Description
 
 This project consists of a web-based crowdfunding platform designed to encourage donations to social causes. The goal is to create an engaging experience that encourages community participation and increases the impact of campaigns. Some of the features include creating and managing campaigns, viewing donations, and creating users.
 
@@ -14,7 +14,7 @@ This project consists of a web-based crowdfunding platform designed to encourage
 - Node Package Manager (NPM)
 - Git
 
-## Instalation
+## Installation
 
 The installation process consists of cloning this repository and installing the dependencies using NPM. To do this, the following commands can be executed:
 
